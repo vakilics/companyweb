@@ -1,18 +1,25 @@
 import streamlit as st
 from send_email import send_mail
+import pandas
 
 st.header("Contact Us:")
 st.write("Will be sent to: hamidgml@gmail.com")
 
+df = pandas.read_csv("topics.csv")
+
 with st.form(key="email_forms"):
     user_email = st.text_input("Your email address")
-    raw_message = st.text_area("Your message ... ")
-    #message = message + "\n" + user_email
+    option = st.selectbox(
+        'What topic do you want to discuss?',
+        # ('Job Inquiries', 'Project Proposals', 'Other'))
+        df["topic"])
+
     #Or can format it like:
+    raw_message = st.text_area("Text")
     message = f"""\
-Subjec: New email from {user_email}
-From: {user_email}
-{raw_message}
+subject: New email from {user_email} 
+from: {user_email}
+{option} "\n" {raw_message}
 """
     button = st.form_submit_button("Submit")
     if button:
