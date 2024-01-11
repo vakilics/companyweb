@@ -1,9 +1,13 @@
 import streamlit as st
 from send_email import send_mail
+from PIL import Image
 import pandas
 
-st.header("Contact Us:")
+st.header(":blue[Contact Us:]")
 st.write("Will be sent to: hamidgml@gmail.com")
+
+image = Image.open('images/1.png')
+st.image(image, width=100, caption="Greetings!")
 
 df = pandas.read_csv("topics.csv")
 
